@@ -1,4 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
@@ -6,25 +6,25 @@ namespace Domain
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Name("Бренд")]
+        [Column("Бренд")]
         public string Vendor {  get; set; }
 
-        [Name("Каталожный номер")]
+        [Column("Номер запчасти")]
         public string Number { get; set; }
 
-        [Name("Бренд для поиска")]
+        [Column("Производитель для поиска")]
         public string SearchVendor { get; set; }
 
-        [Name("Номер для поиска")]
+        [Column("Номер для поиска")]
         public string SearchNumber { get; set; }
 
-        [Name("Описание")]
+        [Column("Наименование")]
         public string Description { get; set; }
 
-        [Name("Цена")]
+        [Column("Цена")]
         public decimal Price { get; set; }
 
-        [Name("Наличие")]
+        [Column("Количество")]
         public int Count { get; set; }
     }
 }

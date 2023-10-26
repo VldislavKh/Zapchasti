@@ -1,9 +1,12 @@
 
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Presentation.Services;
 using Presentation.Services.Interfaces;
+using System.Configuration;
 using System.Reflection;
 
 namespace Zapchasti
@@ -22,18 +25,13 @@ namespace Zapchasti
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+            builder.Services.AddScoped<IPutPriceItemsToContext, CsvService>();
             builder.Services.AddScoped<IRecieveLastCsvEmail, EmailService>();
-
+            builder.Services.AddScoped<IDbService, DbService>();
+          
             //DB
-            builder.Services.AddEntityFrameworkSqlite().AddDbContext<ApplicationContext>();
-
-            using (var context = new ApplicationContext())
-            {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-                context.Database.Migrate();
-            }
-            
+            builder.Services.AddDbContext<ApplicationContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 

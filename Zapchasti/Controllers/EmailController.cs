@@ -18,9 +18,16 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("[action]")]
-        public async Task<ActionResult<string>> RecieveLastCsvEmail([FromBody] RecieveLastCsvEmailCommand command, CancellationToken token)
+        public async Task<ActionResult<string>> RecieveLastCsvEmail([FromBody] PutPriceItemsToContextCommand command, CancellationToken token)
         {
             return await _mediator.Send(command, token);
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> ClearDataBase([FromBody] ClearDataBaseCommand command, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(command, cancellationToken);
+            return Ok();
         }
     }
 }

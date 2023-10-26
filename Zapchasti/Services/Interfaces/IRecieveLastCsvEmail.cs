@@ -2,6 +2,6 @@
 {
     public interface IRecieveLastCsvEmail
     {
-        public string RecieveLastCsvEmail(string email, string password);
+        public void RecieveLastCsvEmail(string email, string password, int providerId, string path);
     }
 }
